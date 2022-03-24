@@ -1,17 +1,17 @@
 
 import os
- 
+
 import dash_html_components as html
 import dash_bootstrap_components as dbc
 
 from app import *
 from dash.dependencies import Input, Output
- 
+
 cards = dbc.CardDeck([
     dbc.Card([
         dbc.CardBody(
             [
-              
+
 
                 html.H4("Dataset Monitor", className="card-title"),
                 html.Br(),

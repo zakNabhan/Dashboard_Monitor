@@ -17,21 +17,14 @@ dataset_app = "/data_set_view"
 
 # the style arguments for the _sidebar.
 sidebar_STYLE = {
-    'position': 'fixed',
-    'top': 6,
-    'left': 5,
-    'bottom': 0,
-    'width': '20%',
-    'padding': '20px 10px',
     'background-color': '#f2f2f2'
 }
 
 # the style arguments for the main content page.
 CONTENT_STYLE = {
-    'margin-left': '25%',
-    'margin-right': '5%',
-    'margin-top': '100px',
-    'padding': '20px 10px'
+    'margin-left': '8%',
+    'margin-right': '8%',
+    'padding': '1px 1px'
 }
 
 TEXT_STYLE = {
@@ -47,18 +40,6 @@ CARD_TEXT_STYLE = {
 dropmenu = dbc.Nav(
     [
         dbc.NavItem(dbc.NavLink("Home", active=True, href="/")),
-        dbc.DropdownMenu(
-            [
-                dbc.DropdownMenuItem("More pages",      header=True),
-                dbc.DropdownMenuItem("Home",            href="/"),
-                dbc.DropdownMenuItem("Dataset Monitor",
-                                     href=dataset_app),
-               
-
-            ],
-            label="More",
-            nav=True,
-        ),
     ]
 )
 
