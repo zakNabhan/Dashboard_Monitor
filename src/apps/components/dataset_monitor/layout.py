@@ -9,7 +9,9 @@ import pandas as pd
 from app import header, sidebar_STYLE, CONTENT_STYLE
 
 
-df = pd.read_csv('./data/datafake.csv')
+#df = pd.read_csv('./data/datafake.csv')
+df = pd.read_csv("https://plotly.github.io/datasets/country_indicators.csv")
+
 reports = Report()
 
 table_col1 = dbc.Card([
@@ -85,47 +87,47 @@ toast = html.Div([
     dbc.Toast(
         [html.Div(
 
-             html.Div(
-                  html.Div([
-                    html.Div(
-                        [
-                         html.Br(),
-                         dcc.Dropdown(
-                            id="report_file",
-                            options=[{'label': file, 'value': file}
-                                     for file in reports.display_list_of_reports()],
-                            placeholder="Select a report to download..."
-                        ),
+            html.Div(
+                 html.Div([
+                     html.Div(
+                          [
+                              html.Br(),
+                              dcc.Dropdown(
+                                  id="report_file",
+                                  options=[{'label': file, 'value': file}
+                                           for file in reports.display_list_of_reports()],
+                                  placeholder="Select a report to download..."
+                              ),
 
-                        ]),
-                    html.Br(),
-                    html.Br(),
-                    dbc.Row([
-                        dbc.Col(
-                            dbc.Button(
-                                id='generate_report',
-                                children='Generate',
-                                outline=True,
-                                color="secondary",
-                                className="mr-1",
-                                block=True
-                            ),),
+                          ]),
+                     html.Br(),
+                     html.Br(),
+                     dbc.Row([
+                         dbc.Col(
+                             dbc.Button(
+                                 id='generate_report',
+                                 children='Generate',
+                                 outline=True,
+                                 color="secondary",
+                                 className="mr-1",
+                                 block=True
+                             ),),
 
-                        dbc.Col([
-                            dbc.Button(
-                                "Export",
-                                id="btn_report",
-                                outline=True,
-                                color="secondary",
-                                className="mr-1",
-                                block=True,
-                            ),
-                            dcc.Download(id="download-report"),
-                        ]),
-                    ])
+                         dbc.Col([
+                             dbc.Button(
+                                 "Export",
+                                 id="btn_report",
+                                 outline=True,
+                                 color="secondary",
+                                 className="mr-1",
+                                 block=True,
+                             ),
+                             dcc.Download(id="download-report"),
+                         ]),
+                     ])
 
-                ])
-            ), className="mb-0")],
+                 ])
+                 ), className="mb-0")],
         header="Export pandas profiling",),
     dbc.Toast(
         [html.Div(reports.generate_dataset_overview(df), className="mb-0")],
@@ -136,10 +138,70 @@ toast = html.Div([
         header="Common Statistics",)
 
 ], style={
-    "display": "flex", 
+    "display": "flex",
     "justify-content": "space-between",
     "margin": "20px"
-    })
+})
+
+
+################################  graph area ################################
+
+controls = controls = dbc.Card(
+    [
+        html.Div(
+            [
+                dbc.Label("X variable"),
+                dcc.Dropdown(
+                    id="xaxis-column",
+                    options=[
+                        {"label": col, "value": col} for col in df.columns.unique()
+                    ],
+
+
+                ),
+            ]
+        ),
+
+        html.Div(
+            [
+                dbc.Label("Y variable"),
+                dcc.Dropdown(
+                    id="yaxis-column",
+                    options=[
+                        {"label": col, "value": col} for col in df.columns.unique()
+                    ],
+
+
+                ),
+            ]
+        ),
+
+
+    ], body=True,
+
+)
+
+
+graph_container = dbc.Container(
+    [
+        html.H1("Country common statistics "),
+        html.Div(id="test"),
+        html.Hr(),
+        dbc.Row(
+            [
+                dbc.Col(controls, md=4),
+                dbc.Col(dcc.Graph(id="indicator-graphic"), md=8),
+                dbc.Col(html.Div([
+                    dcc.Slider(min=df['Year'].min(), max=df['Year'].max(), step=None, value=df['Year'].max(
+                    ), id='year-slider', marks={str(year): str(year) for year in df['Year'].unique()})
+                ]))
+            ],
+            align="center",
+        ),
+    ],
+    fluid=True,
+    style={"background": "rgb(249,248,249)", "padding": "40px"}
+)
 
 
 content = html.Div(
@@ -149,6 +211,7 @@ content = html.Div(
         html.Br(),
         table_row,
         html.Br(),
+        graph_container,
         html.Br(),
 
 
@@ -170,16 +233,16 @@ sidebar = html.Div(
         toast,
         html.Br(),
         html.Br(),
-      
+
     ],
     style=sidebar_STYLE,
 )
-
 
 dataset_monitor_view = [html.Div(children=[
     header,
     sidebar,
     content,
+
 
 ]
 )]
