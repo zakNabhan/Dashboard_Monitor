@@ -6,8 +6,7 @@ import dash_bootstrap_components as dbc
 
 
 class Report:
-
-    title : str = "Dataset Report for Fake Data"
+    title: str = "Dataset Report for Fake Data"
     explorative: bool = True
     reports: list = []
     report_directory: str = "./data/reports"
@@ -20,10 +19,10 @@ class Report:
         date = datetime.datetime.now()
         profile = ProfileReport(
             dataframe,
-            title= self.title,
+            title=self.title,
             explorative=self.explorative
-            
-            )
+
+        )
         profile.to_file("./data/reports/{}.{}.{}_dataset_report.html".format(date.day, date.month, date.year))
 
     def display_list_of_reports(self):
@@ -33,9 +32,9 @@ class Report:
                 self.reports.append(report_name)
         return self.reports
 
-    def getMissingValues(self,df):
+    def getMissingValues(self, df):
         n_missing = df.isna().sum()
-        
+
         return sum(n_missing)
 
     def generate_dataset_overview(self, df, max_rows=10):
@@ -51,12 +50,12 @@ class Report:
 
         row_count = []
         for k, v in results.items():
-            row_count.append( html.Tr([html.Td("{}".format(k)), html.Td("{}".format(v))]))
+            row_count.append(html.Tr([html.Td("{}".format(k)), html.Td("{}".format(v))]))
 
         render_table = dbc.Table([
-                            html.Tbody([
-                                x for x in row_count
-                            ])
-                        ], bordered=False, className="dataset_statistics_table")
-     
-        return  render_table
+            html.Tbody([
+                x for x in row_count
+            ])
+        ], bordered=False, className="dataset_statistics_table")
+
+        return render_table

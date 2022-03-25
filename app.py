@@ -1,19 +1,15 @@
 import dash
- 
+
 import dash_bootstrap_components as dbc
 import dash_html_components as html
 
-
 app = dash.Dash(__name__, external_stylesheets=[
-                dbc.themes.BOOTSTRAP], prevent_initial_callbacks=True)
+    dbc.themes.BOOTSTRAP], prevent_initial_callbacks=True)
 
 server = app.server
 
 app.config.suppress_callback_exceptions = True
-
-
 dataset_app = "/data_set_view"
-
 
 # the style arguments for the _sidebar.
 sidebar_STYLE = {
@@ -60,7 +56,7 @@ header = dbc.Navbar(
                     dbc.Col(dbc.NavbarBrand("Dataset Dashboard"),
                             style={"font-weight": "700"}),
                 ],
-                 
+
             ),
             dbc.Row(
                 dbc.Col(

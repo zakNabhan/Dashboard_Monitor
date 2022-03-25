@@ -9,7 +9,7 @@ import pandas as pd
 from app import header, sidebar_STYLE, CONTENT_STYLE
 
 
-#df = pd.read_csv('./data/datafake.csv')
+# df = pd.read_csv('./data/datafake.csv')
 df = pd.read_csv("https://plotly.github.io/datasets/country_indicators.csv")
 
 reports = Report()

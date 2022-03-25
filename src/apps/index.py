@@ -3,41 +3,25 @@ import dash_bootstrap_components as dbc
 
 from app import *
 
-
 cards = dbc.CardDeck([
     dbc.Card([
         dbc.CardBody(
             [
-
-
                 html.H4("Dataset Monitor", className="card-title"),
                 html.Br(),
-
                 dbc.CardLink("Dataset Monitor", href=dataset_app),
-            ]
-        ),
-
+            ]),
     ]),
     dbc.Card([
-        dbc.CardBody(
-
-        ),
-
-    ],),
-
+        dbc.CardBody(),
+    ], ),
 
     dbc.Card([
-        dbc.CardBody(
-
-        ),
-
-    ],),
-
+        dbc.CardBody(),
+    ], ),
 ], className="cards")
 
-
 layout = html.Div([
-
     header,
     html.Br(),
     cards,
